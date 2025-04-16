@@ -1,0 +1,88 @@
+{%extends 'TV_Display3.html' %}
+
+{% block content %}
+<meta http-equiv="refresh" content="15" />
+<script>    
+  window.setTimeout(function(){
+
+    // Move to a new location or you can do something else
+    window.location.href = "home2";
+
+    }, 6000);
+
+</script>
+<head>
+  <style>
+    /*
+   td {
+    
+    border: 1px solid white;
+    border-collapse: collapse;
+    text-align:center;
+    font-size: 8.1vh;;
+    color: white;
+    background-color: black;
+    
+    height: 12vh;
+  }
+  th{
+    border: 1px solid white;
+    border-collapse: collapse;
+    text-align:center;
+    font-size: 7vh;
+    color: white;
+    background-color:purple;
+    height: 12vh;
+  }
+*/
+  </style>
+</head>
+
+<!--<table style="width:100%;border:2px solid black">-->
+<table>
+    <tr >
+        <th >गाड़ी क्र.</th>
+        <th>गाड़ी का नाम </th>
+        <th>समय</th>
+        <!--<th>आ/प्र</th>-->
+        <th>प्ले.क्र.</th>
+        <th>स्थिति</th>
+    </tr>
+    {% for train_data in ntes_data%}
+    
+
+    
+    <tr >
+      <td>{{train_data.trainNo}}</td>
+      <td style="text-align:left">{{train_data.trainNameHindi}}</td>
+      {% if train_data.src == station  or train_data.AD == "D"%}
+        <td>{{train_data.ETD}}</td>
+        <!--<td>D</td>-->
+        {% else %}
+        <td>{{train_data.ETA}}</td>
+        {% endif %}
+
+        <td>{{train_data.platformNo}}</td>
+
+      
+
+        {% if train_data.isArrived == 0 or train_data.STAT == "O" %}
+        <td  style="color:green;">समय पर</td>
+        
+        {% else %}
+        {% if train_data.isArrived == 1 or train_data.STAT == "AG" or train_data.STAT == "AD" %}
+       
+        <td  style="color:orange;">खड़ी है</td>
+        
+        {% else %}
+        <td style="color:red;">देरी से</td>
+             
+        
+        {% endif %}
+        {% endif %}
+  </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}
