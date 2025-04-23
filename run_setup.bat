@@ -1,14 +1,12 @@
 @echo off
-echo Creating virtual environment using embedded Python...
-python-embed\python.exe -m venv venv
+set PYTHON_DIR=%~dp0winpython\python
+set PATH=%PYTHON_DIR%;%PYTHON_DIR%\Scripts;%PATH%
 
-echo Activating venv and installing packages...
-call venv\Scripts\activate.bat
-python -m pip install --upgrade pip
+echo Installing required Python packages...
 pip install -r requirements.txt
 
 echo Installing service using NSSM...
-call install_service.bat
+call install_service.bat 
 
 echo All done. Reboot to auto-start service.
 pause
